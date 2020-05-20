@@ -1,26 +1,123 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { Button } from 'poc-component-factory';
+import { RadioButton } from 'poc-component-factory';
+import { withCustomTheme } from 'poc-component-factory/dist/themes/with-custom-theme';
 
-function App() {
+const myCustomTheme = {
+  palette: {
+    common: {
+      black: "#000",
+      white: "#fff",
+    },
+    primary: {
+      light: "pink",
+      main: "blue",
+      dark: "black",
+      contrastText: "purple",
+    },
+    secondary: {
+      light: "#a2b9bc",
+      main: "#b2ad7f",
+      dark: "#878f99",
+      contrastText: "#6b5b95",
+    },
+  },
+  typography: {
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+    h1: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 300,
+      fontSize: "6rem",
+      lineHeight: 1.167,
+      letterSpacing: "-0.01562em",
+    },
+    subtitle1: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 400,
+      fontSize: "1rem",
+      lineHeight: 1.75,
+      letterSpacing: "0.00938em",
+    },
+    body1: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 400,
+      fontSize: "1rem",
+      lineHeight: 1.5,
+      letterSpacing: "0.00938em",
+    },
+    button: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 500,
+      fontSize: "0.875rem",
+      lineHeight: 1.75,
+      textTransform: "uppercase",
+      letterSpacing: "0.02857em",
+    },
+  },
+  shape: {
+    borderRadius: "4px",
+  },
+};
+
+export const MyNewThemedButton = withCustomTheme(<ThemeProvider />, Button, myCustomTheme);
+
+export const App = () => {
+  const [isFemaleSelected, setIsFemaleSelected] = useState(false);
+  const [isMaleSelected, setIsMaleSelected] = useState(false);
+
+  const toggleButton = (e) => {
+    if (e.target.value === 'female') {
+      setIsFemaleSelected(!isFemaleSelected);
+    } else {
+      setIsMaleSelected(!isMaleSelected);
+    }
+  };
+
+  const onClick = () => console.log("Button Clicked!");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Button onClick={onClick} variant="text" primary>
+        Submit
+      </Button>
+      <Button onClick={onClick} variant="contained">
+        Submit
+      </Button>
+      <MyNewThemedButton
+        onClick={onClick}
+        variant="contained"
+        primary
+      >
+        Submit
+      </MyNewThemedButton>
+      <MyNewThemedButton onClick={onClick} variant="text" primary>
+        Submit
+      </MyNewThemedButton>
+      <div>
+        <RadioButton
+          label="Female"
+          name="female"
+          value="female"
+          checked={isFemaleSelected}
+          onChange={(e) => toggleButton(e)}
+        />
+      </div>
+      <div>
+        <RadioButton
+          label="Male"
+          name="female"
+          value="male"
+          checked={isMaleSelected}
+          onChange={(e) => toggleButton(e)}
+        />
+      </div>
     </div>
   );
-}
+};
 
 export default App;

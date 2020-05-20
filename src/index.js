@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ThemeProvider } from 'styled-components';
+import designTokens from 'poc-component-factory/dist/themes/design-tokens';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={designTokens}>
     <App />
-  </React.StrictMode>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
