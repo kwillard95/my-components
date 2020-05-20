@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider } from 'styled-components';
-import designTokens from 'poc-component-factory/dist/themes/design-tokens';
+// import designTokens from 'poc-component-factory/dist/themes/design-tokens';
+import designTokens from './themes/designToken';
 
 ReactDOM.render(
   <ThemeProvider theme={designTokens}>

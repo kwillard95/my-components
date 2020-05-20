@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from 'styled-components';
 import { Button } from 'poc-component-factory';
 import { RadioButton } from 'poc-component-factory';
-import { withCustomTheme } from 'poc-component-factory/dist/themes/with-custom-theme';
+import { ThemeProvider } from 'styled-components'
+
+
+const withCustomTheme = (Component, theme) => props => (
+  <ThemeProvider theme={theme}>
+    <Component {...props} />
+  </ThemeProvider>
+);
 
 const myCustomTheme = {
   palette: {
@@ -64,7 +70,7 @@ const myCustomTheme = {
   },
 };
 
-export const MyNewThemedButton = withCustomTheme(<ThemeProvider />, Button, myCustomTheme);
+const MyNewThemedButton = withCustomTheme(Button, myCustomTheme);
 
 export const App = () => {
   const [isFemaleSelected, setIsFemaleSelected] = useState(false);
@@ -85,7 +91,7 @@ export const App = () => {
       <Button onClick={onClick} variant="text" primary>
         Submit
       </Button>
-      <Button onClick={onClick} variant="contained">
+      <Button onClick={onClick} variant="contained" primary>
         Submit
       </Button>
       <MyNewThemedButton
